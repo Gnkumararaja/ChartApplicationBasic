@@ -1,0 +1,48 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="chartapp.ChartApplication.controller.Chartview"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:chart="sap.suite.ui.commons">
+	<Page title="ChartApplication">
+		<content>
+			<layout:FixFlex id='chartFixFlex' minFlexSize="250">
+				<layout:fixContent>
+					<Panel>
+						<content>
+							<HBox>
+								<VBox>
+									<Label text="Settings"/>
+									<Select maxWidth="300px" items="{ path: '/chartType' }" change='onChartChanged'>
+										<core:ListItem text="{name}"/>
+									</Select>
+								</VBox>
+							</HBox>
+						</content>
+					</Panel>
+				</layout:fixContent>
+				<layout:flexContent>
+					<chart:ChartContainer id="chartContainer" showFullScreen="true" showZoom="false">
+						<chart:ChartContainerContent>
+							<chart:content>
+								<viz:VizFrame width="auto" id="idVizframe" uiConfig="{application:'fiori'}" vizType='bar'>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/Countries}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Country" value="{Country}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Recovered" value="{TotalRecovered}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Recovered"/>
+										<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Country"/>
+									</viz:feeds>
+								</viz:VizFrame>
+							</chart:content>
+						</chart:ChartContainerContent>
+					</chart:ChartContainer>
+				</layout:flexContent>
+			</layout:FixFlex>
+		</content>
+	</Page>
+</mvc:View>
