@@ -66,9 +66,47 @@ sap.ui.define([
 		},
 		
 		onChartChanged: function(oEvent){
-			
-			if (this.oVizFrame){
+		//	debugger;
+			var oVal = this.byId("idSelect").getSelectedItem().getText();
+			var oVizbub = this.byId("bubblechart");
+			var oVizline = this.byId("linechart");
+			var oVizbar = this.byId("barchart");
+			var oVizdon = this.byId("donutchart");
+			var oVizpie = this.byId("piechart");
+			if(oVal == "Bar Chart"){
+				oVizbar.setVisible(true);
+				oVizbub.setVisible(false);
+				oVizline.setVisible(false);
+				oVizdon.setVisible(false);
+				oVizpie.setVisible(false);
+			} else if(oVal == "Line Chart"){
+				oVizbar.setVisible(false);
+				oVizbub.setVisible(false);
+				oVizline.setVisible(true);
+				oVizdon.setVisible(false);
+				oVizpie.setVisible(false);
+			} else if(oVal == "Bubble Chart"){
+				oVizbar.setVisible(false);
+				oVizbub.setVisible(true);
+				oVizline.setVisible(false);
+				oVizdon.setVisible(false);
+				oVizpie.setVisible(false);
+			} else if(oVal == "Donut Chart"){
+				oVizbar.setVisible(false);
+				oVizbub.setVisible(false);
+				oVizline.setVisible(false);
+				oVizdon.setVisible(true);
+				oVizpie.setVisible(false);
+			} else if(oVal == "Pie Chart"){
+				oVizbar.setVisible(false);
+				oVizbub.setVisible(false);
+				oVizline.setVisible(false);
+				oVizdon.setVisible(false);
+				oVizpie.setVisible(true);
+			}
+		/*	if (this.oVizFrame){
                 var selectedKey = this.chart = parseInt(oEvent.getSource().getSelectedKey());
+                debugger;
                 var bindValue = this.settingsModel.chartType.values[selectedKey];
                 this.oVizFrame.destroyDataset();
                 this.oVizFrame.destroyFeeds();
@@ -153,7 +191,7 @@ sap.ui.define([
                         this.oVizFrame.addFeed(feedTimeAxis);
                         break;
                 }
-            }
+            }*/
         
     
 

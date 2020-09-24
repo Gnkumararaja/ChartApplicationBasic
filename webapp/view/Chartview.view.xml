@@ -3,7 +3,7 @@
 	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:chart="sap.suite.ui.commons">
 	<Page title="ChartApplication">
 		<content>
-			<layout:FixFlex id='chartFixFlex' minFlexSize="250">
+		<!--	<layout:FixFlex id='chartFixFlex' minFlexSize="250">
 				<layout:fixContent>
 					<Panel>
 						<content>
@@ -18,8 +18,9 @@
 						</content>
 					</Panel>
 				</layout:fixContent>
+			
 				<layout:flexContent>
-					<chart:ChartContainer id="chartContainer" showFullScreen="true" showZoom="false">
+					<chart:ChartContainer id="chartContainer" visible="true" showFullScreen="true" showZoom="false">
 						<chart:ChartContainerContent>
 							<chart:content>
 								<viz:VizFrame width="auto" id="idVizframe" uiConfig="{application:'fiori'}" vizType='bar'>
@@ -42,7 +43,124 @@
 						</chart:ChartContainerContent>
 					</chart:ChartContainer>
 				</layout:flexContent>
-			</layout:FixFlex>
+				
+				
+			
+
+			</layout:FixFlex>-->
+					<Panel>
+						<content>
+							<HBox>
+								<VBox>
+									<Label text="Settings"/>
+									<Select maxWidth="300px" id="idSelect" items="{ path: '/chartType' }" change='onChartChanged'>
+										<core:ListItem text="{name}"/>
+									</Select>
+								</VBox>
+							</HBox>
+						</content>
+					</Panel>
+			<VBox>
+			<FlexBox  id="barchart" visible="false">
+					<viz:VizFrame id="idVizframe" uiConfig="{application:'fiori'}" vizType='bar'>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/Countries}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Country" value="{Country}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Recovered" value="{TotalRecovered}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Recovered"/>
+										<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Country"/>
+									</viz:feeds>
+								</viz:VizFrame>
+			</FlexBox>
+			<FlexBox id="bubblechart" visible="false">
+					<viz:VizFrame id="idVizframe1" uiConfig="{application:'fiori'}" vizType='bubble'>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/Countries}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Confirmed" value="{TotalConfirmed}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Country" value="{Country}"/>
+											</viz.data:measures>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Death" value="{TotalDeath}"/>
+											</viz.data:measures>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Recovered" value="{TotalRecovered}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Country"/>
+										<viz.feeds:FeedItem uid="valueAxis2" type="Measure" values="Death"/>
+										<viz.feeds:FeedItem uid="bubbleWidth" type="Measure" values="Recovered"/>
+									</viz:feeds>
+								</viz:VizFrame>
+			</FlexBox>
+			<FlexBox id="linechart" visible="false">
+					<viz:VizFrame id="idVizframe2" uiConfig="{application:'fiori'}" vizType='line'>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/Countries}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Country" value="{Country}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Death" value="{TotalDeath}"/>
+												<viz.data:MeasureDefinition name="Recovered" value="{TotalRecovered}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Death"/>
+					
+										<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Country"/>
+									</viz:feeds>
+								</viz:VizFrame>
+			</FlexBox>
+			<FlexBox id="donutchart" visible="false">
+					<viz:VizFrame id="idVizframe3" uiConfig="{application:'fiori'}" vizType='donut'>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/Countries}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="TotalDeath" value="{TotalDeath}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Recovered" value="{TotalRecovered}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Recovered"/>
+										<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="TotalDeath"/>
+									</viz:feeds>
+								</viz:VizFrame>
+			</FlexBox>
+			<FlexBox id="piechart" visible="false">
+					<viz:VizFrame id="idVizframe4" uiConfig="{application:'fiori'}" vizType='pie'>
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{/Countries}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="TotalDeath" value="{TotalDeath}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="Recovered" value="{TotalRecovered}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Recovered"/>
+										<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="TotalDeath"/>
+									</viz:feeds>
+								</viz:VizFrame>
+			</FlexBox>
+			</VBox>
 		</content>
 	</Page>
 </mvc:View>
